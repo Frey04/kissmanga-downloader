@@ -1,0 +1,27 @@
+version: '2'
+services:
+  downloader:
+    image: "bmzhao/kissmanga-downloader:latest"
+    depends_on:
+      - selenium
+    environment:
+      - SELENIUM_HOST=selenium
+      - SELENIUM_PORT=24444
+    volumes:
+      - ./output:/output
+    entrypoint:
+      - java
+      - -jar
+      - /kissmanga-downloader.jar
+      https://kissmanga.com/Manga/Isekai-Demo-Bunan-ni-Ikitai-Shoukougun?__cf_chl_jschl_tk__=d12e344cfa5ce3f703d5e7d7df6dacf9084bcfc0-1596217157-0-AdsIsR8GrO6acWSnbtvXWp8tMk9MLSrqeNuAS7nbOgxWFigPZHg0WLSVwod35POzxz77P5vNugOosNN-Aanjd_L_eP9d62m8IY0E6Hm0l-uKylmIIOE6aUNS-p3wzRiiYBKcOmcIQOEseLj06mch3QWdHpM3OzRVRzEM1Z9VVmbWoV45elMt1F3gIUIOR8R54YhvWYWUDJSjnBuUsbCNGyL_b1-_BTyroy5ol4PsxjWU-3QoijerR1BIMGcWCXROuSgH6voDsGwqwKu3afp7YG88UYOP8NATR3wAoLatNH9lP_t5ypuOczEMAtjoPI7_EhSUD4OqgypSi6M-Mo9B-rk
+  selenium:
+    image: "elgalu/selenium:latest"
+    ports:
+      - "5900:25900"
+    environment:
+      - USE_SELENIUM=3
+      - TZ=US/Pacific
+      - VNC_PASSWORD=secret
+    shm_size: 1g
+
+#template-example: https://github.com/elgalu/docker-selenium/blob/master/docker-compose.yml
